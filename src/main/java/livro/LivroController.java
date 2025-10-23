@@ -29,50 +29,47 @@ public class LivroController {
                          Model model) {
         var pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Livro> pagina;
-
         if (q != null && !q.isBlank()) {
             pagina = repo.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCase(q, q, pageable);
         } else {
             pagina = repo.findAll(pageable);
         }
-
         model.addAttribute("pagina", pagina);
         model.addAttribute("q", q);
-        return "livros/lista";
+        // ARQUIVO EXISTENTE: templates/livros.html
+        return "livros";
     }
 
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("livro", new Livro());
-        return "livros/form";
+        // ARQUIVO EXISTENTE: templates/form-livro.html
+        return "form-livro";
     }
 
     @PostMapping
-    public String criar(@Valid @ModelAttribute("livro") Livro livro,
+    public String criar(@Valid @ModelAttribute Livro livro,
                         BindingResult br,
                         RedirectAttributes ra) {
-        if (br.hasErrors()) return "livros/form";
-
+        if (br.hasErrors()) return "form-livro";
         repo.save(livro);
-        ra.addFlashAttribute("msg", "Livro criado com sucesso!");
+        ra.addFlashAttribute("msg", "Livro criado!");
         return "redirect:/livros";
     }
 
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
-        var livro = repo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado: " + id));
+        var livro = repo.findById(id).orElseThrow();
         model.addAttribute("livro", livro);
-        return "livros/form";
+        return "form-livro";
     }
 
     @PostMapping("/{id}")
     public String atualizar(@PathVariable Long id,
-                            @Valid @ModelAttribute("livro") Livro livro,
+                            @Valid @ModelAttribute Livro livro,
                             BindingResult br,
                             RedirectAttributes ra) {
-        if (br.hasErrors()) return "livros/form";
-
+        if (br.hasErrors()) return "form-livro";
         livro.setId(id);
         repo.save(livro);
         ra.addFlashAttribute("msg", "Livro atualizado!");
