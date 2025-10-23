@@ -2,34 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
       th:replace="~{_layout :: layout(~{::section}, 'Livro')}">
 <section>
-  <h2 th:text="${livro.id} != null ? 'Editar Livro' : 'Novo Livro'">Novo Livro</h2>
+  <h2 class="title">Novo Livro</h2>
 
-  <form th:action="${livro.id} != null ? @{|/livros/${livro.id}|} : @{/livros}"
-        method="post" th:object="${livro}" class="form">
-    <div class="field">
-      <label for="titulo">Título</label>
-      <input id="titulo" type="text" th:field="*{titulo}">
-      <small class="error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">erro</small>
-    </div>
+  <form th:action="@{/livros}" method="post" th:object="${livro}">
+    <label for="titulo">Título</label>
+    <input id="titulo" type="text" th:field="*{titulo}">
+    <div class="field-error" th:errors="*{titulo}"></div>
 
-    <div class="field">
-      <label for="autor">Autor</label>
-      <input id="autor" type="text" th:field="*{autor}">
-      <small class="error" th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}">erro</small>
-    </div>
+    <label for="autor">Autor</label>
+    <input id="autor" type="text" th:field="*{autor}">
+    <div class="field-error" th:errors="*{autor}"></div>
 
-    <div>
-      <label>Status</label>
-      <select name="status" th:field="*{status}">
-        <option value="ATIVO">ATIVO</option>
-        <option value="INATIVO">INATIVO</option>
-      </select>
-    </div>
+    <!-- se estiver usando status:
+    <label for="status">Status</label>
+    <select id="status" th:field="*{status}">
+      <option value="ATIVO">ATIVO</option>
+      <option value="INATIVO">INATIVO</option>
+    </select> -->
 
-
-    <div class="actions">
-      <button type="submit">Salvar</button>
-      <a th:href="@{/livros}">Voltar</a>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Salvar</button>
+      <a class="btn btn-ghost" th:href="@{/livros}">Voltar</a>
     </div>
   </form>
 </section>

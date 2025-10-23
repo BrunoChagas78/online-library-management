@@ -7,16 +7,18 @@
   <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
-<header>
+<header class="container">
   <h1><a th:href="@{/livros}">Biblioteca</a></h1>
 </header>
 
-<main>
-  <div th:if="${msg}" class="flash" th:text="${msg}"></div>
-  <div th:replace="${content}">[content]</div>
+<main class="container">
+  <div class="card">
+    <div th:if="${msg}" class="flash" th:text="${msg}"></div>
+    <div th:replace="${content}">[content]</div>
+  </div>
 </main>
 
-<footer>
+<footer class="container">
   <small>Online Library • Render</small>
 </footer>
 </body>

@@ -6,11 +6,18 @@
   <div class="toolbar">
     <form th:action="@{/livros}" method="get">
       <input type="text" name="q" placeholder="Buscar por título ou autor" th:value="${q}">
-      <button type="submit">Buscar</button>
+      <button class="btn btn-primary" type="submit">Buscar</button>
     </form>
-    <a class="btn" th:href="@{/livros/novo}">Novo</a>
+    <a class="btn" th:href="@{/livros}">Limpar</a>
+    <a class="btn btn-primary" th:href="@{/livros/novo}">Novo</a>
   </div>
 
+  <table class="table">
+    <!-- thead / tbody como já está -->
+  </table>
+
+  <!-- se tiver paginação, envolva com .pagination -->
+</section>
   <table>
     <thead>
       <tr><th>ID</th><th>Título</th><th>Autor</th><th style="width:160px">Ações</th></tr>
