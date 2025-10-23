@@ -1,39 +1,60 @@
-package livro;
+package livro.controller;
 
+import livro.model.Livro;
+import livro.repository.LivroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @Controller
+@RequestMapping("/livros")
 public class LivroController {
 
-    private final LivroRepository repo;
+    @Autowired
+    private LivroRepository livroRepository;
 
-    public LivroController(LivroRepository repo) {
-        this.repo = repo;
+    // Exibir lista de livros
+    @GetMapping
+    public String listarLivros(Model model) {
+        List<Livro> livros = livroRepository.findAll();
+        model.addAttribute("livros", livros);
+        return "livros"; // renderiza templates/livros.html
     }
 
-    // Página principal
-    @GetMapping({"/", "/livros"})
-    public String listar(Model model) {
-        List<Livro> livros = repo.findAll();
-        model.addAttribute("livros", livros);
+    // Exibir formulário para novo livro
+    @GetMapping("/novo")
+    public String novoLivroForm(Model model) {
         model.addAttribute("livro", new Livro());
-        return "livros";
+        return "form-livro"; // renderiza templates/form-livro.html
     }
 
     // Salvar livro
-    @PostMapping("/livros")
-    public String salvar(@ModelAttribute Livro livro) {
-        repo.save(livro);
+    @PostMapping
+    public String salvarLivro(@ModelAttribute Livro livro) {
+        livroRepository.save(livro);
         return "redirect:/livros";
     }
 
-    // API para evidência de persistência
-    @GetMapping("/api/livros")
-    @ResponseBody
-    public List<Livro> apiList() {
-        return repo.findAll();
+    // Editar livro existente
+    @GetMapping("/editar/{id}")
+    public String editarLivro(@PathVariable Long id, Model model) {
+        Optional<Livro> livro = livroRepository.findById(id);
+        if (livro.isPresent()) {
+            model.addAttribute("livro", livro.get());
+            return "form-livro";
+        } else {
+            return "redirect:/livros";
+        }
+    }
+
+    // Deletar livro
+    @GetMapping("/excluir/{id}")
+    public String excluirLivro(@PathVariable Long id) {
+        livroRepository.deleteById(id);
+        return "redirect:/livros";
     }
 }
