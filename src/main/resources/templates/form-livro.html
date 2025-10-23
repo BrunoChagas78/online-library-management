@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
-      th:replace="_layout :: layout(~{::section}, 'Livro')">
+      th:replace="~{_layout :: layout(~{::section}, 'Livro')}">
 <section>
   <h2 th:text="${livro.id} != null ? 'Editar Livro' : 'Novo Livro'">Novo Livro</h2>
 

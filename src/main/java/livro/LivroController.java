@@ -52,6 +52,9 @@ public class LivroController {
                         BindingResult br,
                         RedirectAttributes ra) {
         if (br.hasErrors()) return "form-livro";
+        if (livro.getStatus() == null || livro.getStatus().isBlank()) {
+            livro.setStatus("ATIVO");
+        }
         repo.save(livro);
         ra.addFlashAttribute("msg", "Livro criado!");
         return "redirect:/livros";
