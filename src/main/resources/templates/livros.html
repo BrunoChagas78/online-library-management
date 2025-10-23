@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
-      th:replace="_layout :: layout (~{::body}, ~{::title})"
-      th:with="title='Livros', content=~{::section}">
+      th:replace="_layout :: layout(~{::section}, 'Livros')">
 <body>
 <section>
   <div class="toolbar">
