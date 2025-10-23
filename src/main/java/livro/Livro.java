@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "livro") // garante o nome certo da tabela
 public class Livro {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Título é obrigatório")
@@ -16,8 +18,9 @@ public class Livro {
     private String autor;
 
     @Column(nullable = false)
-    private String status = "ATIVO";
+    private String status = "ATIVO"; // default para atender NOT NULL no banco
 
+    // getters e setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -26,4 +29,7 @@ public class Livro {
 
     public String getAutor() { return autor; }
     public void setAutor(String autor) { this.autor = autor; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

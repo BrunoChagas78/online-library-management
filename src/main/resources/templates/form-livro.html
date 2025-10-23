@@ -18,6 +18,15 @@
       <small class="error" th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}">erro</small>
     </div>
 
+    <div>
+      <label>Status</label>
+      <select name="status" th:field="*{status}">
+        <option value="ATIVO">ATIVO</option>
+        <option value="INATIVO">INATIVO</option>
+      </select>
+    </div>
+
+
     <div class="actions">
       <button type="submit">Salvar</button>
       <a th:href="@{/livros}">Voltar</a>
