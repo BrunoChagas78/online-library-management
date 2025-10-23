@@ -29,11 +29,13 @@ public class LivroController {
                          Model model) {
         var pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Livro> pagina;
+
         if (q != null && !q.isBlank()) {
             pagina = repo.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCase(q, q, pageable);
         } else {
             pagina = repo.findAll(pageable);
         }
+
         model.addAttribute("pagina", pagina);
         model.addAttribute("q", q);
         return "livros/lista";
@@ -50,6 +52,7 @@ public class LivroController {
                         BindingResult br,
                         RedirectAttributes ra) {
         if (br.hasErrors()) return "livros/form";
+
         repo.save(livro);
         ra.addFlashAttribute("msg", "Livro criado com sucesso!");
         return "redirect:/livros";
@@ -57,7 +60,8 @@ public class LivroController {
 
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
-        var livro = repo.findById(id).orElseThrow();
+        var livro = repo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado: " + id));
         model.addAttribute("livro", livro);
         return "livros/form";
     }
@@ -68,6 +72,7 @@ public class LivroController {
                             BindingResult br,
                             RedirectAttributes ra) {
         if (br.hasErrors()) return "livros/form";
+
         livro.setId(id);
         repo.save(livro);
         ra.addFlashAttribute("msg", "Livro atualizado!");
