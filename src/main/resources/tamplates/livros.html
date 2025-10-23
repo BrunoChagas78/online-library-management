@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Library Management</title>
+</head>
+<body>
+  <h1>Online Library Management — Iteração 1</h1>
+
+  <h2>Cadastrar Livro</h2>
+  <form method="post" action="/livros">
+    <input name="titulo" placeholder="Título" required>
+    <input name="autor"  placeholder="Autor" required>
+    <input name="isbn"   placeholder="ISBN">
+    <button type="submit">Salvar</button>
+  </form>
+
+  <h2>Livros Cadastrados</h2>
+  <table border="1" cellpadding="6">
+    <tr><th>ID</th><th>Título</th><th>Autor</th><th>ISBN</th><th>Status</th></tr>
+    <tr th:each="l : ${livros}">
+      <td th:text="${l.id}">1</td>
+      <td th:text="${l.titulo}">Título</td>
+      <td th:text="${l.autor}">Autor</td>
+      <td th:text="${l.isbn}">ISBN</td>
+      <td th:text="${l.status}">DISPONIVEL</td>
+    </tr>
+  </table>
+
+  <p>API pública: <a href="/api/livros">/api/livros</a></p>
+</body>
+</html>
