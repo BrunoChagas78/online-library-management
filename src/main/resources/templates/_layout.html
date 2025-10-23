@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title} ?: 'Biblioteca'">Biblioteca</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<header>
+  <h1><a th:href="@{/livros}">Biblioteca</a></h1>
+</header>
+
+<main>
+  <div th:if="${msg}" class="flash" th:text="${msg}"></div>
+  <div th:replace="${content}">[content]</div>
+</main>
+
+<footer>
+  <small>Online Library • Render</small>
+</footer>
+</body>
+</html>
