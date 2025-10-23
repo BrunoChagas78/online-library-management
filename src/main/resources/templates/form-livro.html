@@ -3,9 +3,13 @@
       th:replace="~{_layout :: layout(~{::section}, 'Livro')}">
 <body>
 <section>
-  <h2 class="title" th:text="${#strings.isEmpty(${livro.id}) ? 'Novo Livro' : 'Editar Livro'}">Novo Livro</h2>
+  <!-- título: sem ${} aninhado -->
+  <h2 class="title" th:text="${livro.id} == null ? 'Novo Livro' : 'Editar Livro'">Novo Livro</h2>
 
-  <form th:action="@{/livros}" method="post" th:object="${livro}">
+  <!-- action condicional: POST /livros (novo) OU POST /livros/{id} (editar) -->
+  <form th:action="${livro.id} == null ? @{/livros} : @{|/livros/${livro.id}|}"
+        method="post" th:object="${livro}">
+
     <label for="titulo">Título</label>
     <input id="titulo" type="text" th:field="*{titulo}">
     <div class="field-error" th:errors="*{titulo}"></div>
@@ -14,15 +18,14 @@
     <input id="autor" type="text" th:field="*{autor}">
     <div class="field-error" th:errors="*{autor}"></div>
 
-    <!-- mostre este bloco só se existir o campo na entidade -->
-    <div th:if="${#fields.hasAnyErrors('status') or true}" style="display:none"></div>
-    <!-- remova o style acima se for usar status -->
+    <!-- Se você adicionou o campo 'status' na entidade, descomente este bloco -->
     <!--
     <label for="status">Status</label>
     <select id="status" th:field="*{status}">
       <option value="ATIVO">ATIVO</option>
       <option value="INATIVO">INATIVO</option>
     </select>
+    <div class="field-error" th:errors="*{status}"></div>
     -->
 
     <div class="form-actions">
