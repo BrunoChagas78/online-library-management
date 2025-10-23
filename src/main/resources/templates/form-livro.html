@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
       th:replace="~{_layout :: layout(~{::section}, 'Livro')}">
+<body>
 <section>
-  <h2 class="title">Novo Livro</h2>
+  <h2 class="title" th:text="${#strings.isEmpty(${livro.id}) ? 'Novo Livro' : 'Editar Livro'}">Novo Livro</h2>
 
   <form th:action="@{/livros}" method="post" th:object="${livro}">
     <label for="titulo">Título</label>
@@ -13,12 +14,16 @@
     <input id="autor" type="text" th:field="*{autor}">
     <div class="field-error" th:errors="*{autor}"></div>
 
-    <!-- se estiver usando status:
+    <!-- mostre este bloco só se existir o campo na entidade -->
+    <div th:if="${#fields.hasAnyErrors('status') or true}" style="display:none"></div>
+    <!-- remova o style acima se for usar status -->
+    <!--
     <label for="status">Status</label>
     <select id="status" th:field="*{status}">
       <option value="ATIVO">ATIVO</option>
       <option value="INATIVO">INATIVO</option>
-    </select> -->
+    </select>
+    -->
 
     <div class="form-actions">
       <button class="btn btn-primary" type="submit">Salvar</button>

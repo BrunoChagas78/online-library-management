@@ -3,6 +3,7 @@
       th:replace="~{_layout :: layout(~{::section}, 'Livros')}">
 <body>
 <section>
+
   <div class="toolbar">
     <form th:action="@{/livros}" method="get">
       <input type="text" name="q" placeholder="Buscar por título ou autor" th:value="${q}">
@@ -12,42 +13,49 @@
     <a class="btn btn-primary" th:href="@{/livros/novo}">Novo</a>
   </div>
 
-  <table class="table">
-    <!-- thead / tbody como já está -->
-  </table>
+  <!-- estado vazio -->
+  <div th:if="${pagina.content.empty}">
+    <p class="subtitle">Nenhum livro encontrado.</p>
+  </div>
 
-  <!-- se tiver paginação, envolva com .pagination -->
-</section>
-  <table>
+  <!-- tabela -->
+  <table class="table" th:if="${!pagina.content.empty}">
     <thead>
-      <tr><th>ID</th><th>Título</th><th>Autor</th><th style="width:160px">Ações</th></tr>
+      <tr>
+        <th style="width:40%">Título</th>
+        <th style="width:30%">Autor</th>
+        <th style="width:12%">Status</th>
+        <th style="width:18%">Ações</th>
+      </tr>
     </thead>
     <tbody>
       <tr th:each="livro : ${pagina.content}">
-        <td th:text="${livro.id}">1</td>
-        <td th:text="${livro.titulo}">Titulo</td>
+        <td th:text="${livro.titulo}">Título</td>
         <td th:text="${livro.autor}">Autor</td>
-        <td>
-          <a th:href="@{|/livros/${livro.id}/editar|}">Editar</a>
-          <form th:action="@{|/livros/${livro.id}/excluir|}" method="post" style="display:inline"
-                onsubmit="return confirm('Excluir este livro?')">
-            <button type="submit">Excluir</button>
+        <td th:text="${livro.status} ?: 'ATIVO'">ATIVO</td>
+        <td class="hstack">
+          <a class="btn" th:href="@{|/livros/${livro.id}/editar|}">Editar</a>
+          <form th:action="@{|/livros/${livro.id}/excluir|}" method="post" onsubmit="return confirm('Excluir este livro?');">
+            <button class="btn btn-danger" type="submit">Excluir</button>
           </form>
         </td>
-      </tr>
-      <tr th:if="${#lists.isEmpty(pagina.content)}">
-        <td colspan="4">Nenhum livro encontrado.</td>
       </tr>
     </tbody>
   </table>
 
+  <!-- paginação -->
   <div class="pagination" th:if="${pagina.totalPages > 1}">
-    <a th:if="${!pagina.first}"
-       th:href="@{/livros(page=${pagina.number-1}, q=${q})}">&laquo; Anterior</a>
-    <span>Página <span th:text="${pagina.number+1}">1</span> de <span th:text="${pagina.totalPages}">1</span></span>
-    <a th:if="${!pagina.last}"
-       th:href="@{/livros(page=${pagina.number+1}, q=${q})}">Próxima &raquo;</a>
+    <a class="page" th:if="${!pagina.first}"
+       th:href="@{/livros(page=${pagina.number-1}, size=${pagina.size}, q=${q})}">&laquo; Anterior</a>
+
+    <span class="page active">
+      Página <span th:text="${pagina.number + 1}">1</span> de <span th:text="${pagina.totalPages}">1</span>
+    </span>
+
+    <a class="page" th:if="${!pagina.last}"
+       th:href="@{/livros(page=${pagina.number+1}, size=${pagina.size}, q=${q})}">Próxima &raquo;</a>
   </div>
+
 </section>
 </body>
 </html>
