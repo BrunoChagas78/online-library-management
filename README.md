@@ -4,6 +4,8 @@ Este documento apresenta a especificação revisada e atualizada do sistema Onli
 
 O objetivo do sistema é permitir o gerenciamento simples de livros de uma biblioteca, possibilitando o cadastro, consulta, atualização e exclusão de registros por meio de uma interface web.
 
+URL de acesso a aplicação online: https://online-library-management-iz1c.onrender.com/livros
+
 2. Objetivos da Iteração 2
 
 A Iteração 2 tem como objetivos principais:
