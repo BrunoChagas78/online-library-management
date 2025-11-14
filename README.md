@@ -129,5 +129,3 @@ Tags:
 v1 – código correspondente à Iteração 1;
 v2 – código correspondente à Iteração 2.
 Esse versionamento permite ao professor e ao grupo acompanharem a evolução do sistema ao longo das iterações de construção.
-
-Se você quiser, no próximo passo eu posso adaptar esse texto para o modelo exato que o professor passou (se tiver capa, tabela, etc.), é só colar aqui o enunciado do modelo ou reenviar o último DOC/PDF de especificação. ::contentReference[oaicite:2]{index=2}
