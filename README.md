@@ -1,17 +1,4 @@
 
-Você pode colar isso direto no `README.md` e ajustar o que achar necessário (nomes de pacotes, etc.).
-
----
-
-### 2.3 Documento de especificação revisado (modelo pronto)
-
-Como eu não tenho mais a versão anterior da sua especificação (arquivo antigo expirou), aqui vai um **texto base** que você pode colar no Word e adaptar.  
-
-Sugestão de título:  
-**“Especificação do Sistema – Online Library Management (Iteração 2)”**
-
----
-
 **1. Introdução**
 
 Este documento apresenta a especificação revisada e atualizada do sistema **Online Library Management**, desenvolvida na disciplina *Prática Profissional em ADS*.  
