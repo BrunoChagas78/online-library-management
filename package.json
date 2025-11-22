@@ -1,5 +1,14 @@
 {
   "dependencies": {
     "cypress": "^15.7.0"
+  },
+  "scripts": {
+    "cy:run": "cypress run --env allure=true",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
+  },
+  "devDependencies": {
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "allure-commandline": "^2.34.1"
   }
 }
