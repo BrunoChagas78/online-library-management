@@ -124,9 +124,3 @@ Exibição de mensagens de erro de validação quando houver dados inválidos.
 9. Controle de Versão
 
 O projeto utiliza Git e GitHub como repositório remoto.
-
-Branch principal: main.
-Branch de desenvolvimento da Iteração 2: iteracao2, criado a partir de main para implementação das funcionalidades desta fase.
-Tags:
-v1 – código correspondente à Iteração 1;
-v2 – código correspondente à Iteração 2.
