@@ -3,7 +3,7 @@ describe('template spec', () => {
     cy.visit('/')
     cy.get('input[name="q"]').type('Teste 1')
     cy.get('button[type="submit"]').contains('Buscar').click();
-    cy.get('.table').should('contain.text', 'Teste 1')
+    cy.get('.table').should('contain.text', 'Teste 1') 
   })
 
   it('Validar campo de busca negativamente', () => {
